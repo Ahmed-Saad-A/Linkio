@@ -3,7 +3,6 @@ import React from "react";
 import  userPhoto  from '/src/assets/user-circles.png';
 
 
-
 const CardHeader = ({avatar, header, subHeader}) => {
 return (
   <div className="flex items-center">

@@ -90,12 +90,13 @@ const PostComment = ({ comment, getAllPosts }) => {
 
   return (
     <div className="flex w-fit items-start space-x-2 pb-5 group">
-      {/* صورة المستخدم */}
+
       <div className="flex-shrink-0 cursor-pointer">
         <img
           className="w-10 h-10 rounded-full object-cover"
           onError={(e) => (e.target.src = userPhoto)}
-          src={comment.commentCreator.photo}
+          // src={comment.commentCreator.photo}
+          src={userPhoto}
           alt="user"
         />
       </div>

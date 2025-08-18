@@ -137,6 +137,7 @@ return (
       {posts.comments.slice(0, visibleComments).map((comment) => (
         <PostComment
           key={comment._id}
+          avatar={posts.user.photo}
           comment={comment}
           getAllPosts={getAllPosts}
         />
