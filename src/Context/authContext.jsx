@@ -3,7 +3,7 @@ import { createContext } from "react";
 import Cookies from "js-cookie";
 import { getUserProfileApi } from "../Services/AuthServices";
 
-export const authContext = createContext();
+export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("token"));
@@ -12,7 +12,7 @@ export default function AuthContextProvider({ children }) {
   async function getUserData() {
     const response = await getUserProfileApi();
     console.log("🚀 ~ getUserData ~ response:", response);
-    if (response.message == "success") {
+    if (response.message === "success") {
       setUserData(response.user);
     }
   }
@@ -20,16 +20,16 @@ export default function AuthContextProvider({ children }) {
   useEffect(() => {
     if (isLoggedIn) {
       getUserData();
-    }else {
+    } else {
       setUserData(null);
     }
   }, [isLoggedIn]);
 
   return (
-    <authContext.Provider
+    <AuthContext.Provider
       value={{ isLoggedIn, setIsLoggedIn, userData, setUserData }}
     >
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 }

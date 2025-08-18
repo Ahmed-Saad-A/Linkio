@@ -8,7 +8,7 @@ import PostFooter from "./Post/PostFooter";
 import PostAction from "./Post/PostAction";
 import CommentInput from "./CommentInput";
 import { Spinner, useDisclosure, addToast } from "@heroui/react";
-import { authContext } from "../Context/authContext";
+import { AuthContext } from "../Context/authContext";
 import { deletePostApi, updatePostApi } from "../Services/PostsServices";
 import CardDroupdown from "./CardDroupdown";
 import ModelComponent from "./ModelComponent";
@@ -28,7 +28,7 @@ const Post = ({
   const [loading, setLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const loadMoreRef = useRef(null);
-  const { userData } = useContext(authContext);
+  const { userData } = useContext(AuthContext);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const [isEditing, setIsEditing] = useState(false);

@@ -5,15 +5,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginSchema } from "../../Shared/Schema/LoginSchema";
-import { loginApi } from "../../Services/authServices";
 import { addToast } from "@heroui/react";
 import Cookies from "js-cookie";
-import { authContext } from "../../Context/authContext";
+import { AuthContext } from "../../Context/authContext";
+import { loginApi } from "../../Services/AuthServices";
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useContext(authContext);
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   const {
     handleSubmit,

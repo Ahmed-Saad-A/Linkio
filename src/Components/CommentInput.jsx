@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Spinner } from "@heroui/react";
-import { authContext } from "./../Context/authContext";
+import { AuthContext } from "./../Context/authContext";
 import EmojiPicker from "emoji-picker-react";
 
 const CommentInput = ({
@@ -23,7 +23,7 @@ const CommentInput = ({
   const [isLoading, setIsLoading] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
 
-  const { userData } = useContext(authContext);
+  const { userData } = useContext(AuthContext);
   const pickerRef = useRef(null);
 
   async function handleCommentSubmit() {

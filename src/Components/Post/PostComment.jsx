@@ -3,7 +3,7 @@ import userPhoto from "/src/assets/user-circles.png";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { addToast, useDisclosure, Button, Spinner } from "@heroui/react";
-import { authContext } from "../../Context/authContext";
+import { AuthContext } from "../../Context/authContext";
 import {
   deleteCommentApi,
   updateCommentApi,
@@ -20,7 +20,7 @@ import {
 dayjs.extend(relativeTime);
 
 const PostComment = ({ comment, getAllPosts }) => {
-  const { userData } = useContext(authContext);
+  const { userData } = useContext(AuthContext);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [isDeleting, setIsDeleting] = useState(false);
 

@@ -10,14 +10,14 @@ import userPhoto from "/src/assets/user-circles.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
-import { authContext } from "../Context/authContext";
+import { AuthContext } from "../Context/authContext";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink} from "@fortawesome/free-solid-svg-icons";
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, userData } = useContext(authContext);
+  const { isLoggedIn, setIsLoggedIn, userData } = useContext(AuthContext);
 
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"

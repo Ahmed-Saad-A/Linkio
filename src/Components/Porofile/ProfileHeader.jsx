@@ -9,11 +9,11 @@ import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input
 import userPhoto from "/src/assets/user-circles.png";
 import profile from "/src/assets/profile.png";
 import { changePassword, uploadUserPhoto } from "../../Services/UserServices";
-import { authContext } from "../../Context/AuthContext";
+import { AuthContext } from "../../Context/authContext";
 
 
 const ProfileHeader = () => {
-  const { userData } = useContext(authContext);
+  const { userData } = useContext(AuthContext);
   const [avatar, setAvatar] = useState(userPhoto);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);

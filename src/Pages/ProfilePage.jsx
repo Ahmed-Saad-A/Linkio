@@ -7,10 +7,11 @@ import { getAllPostsApi } from "../Services/PostsServices";
 import { useQuery } from "@tanstack/react-query";
 import PostSkeleton from "../Components/PostSkeleton";
 import CreatePost from "../Components/Post/CreatePost";
-import { authContext } from "../Context/AuthContext";
+import { AuthContext } from "../Context/AuthContext";
+
 
 const ProfilePage = () => {
-  const { userData } = useContext(authContext);
+  const { userData } = useContext(AuthContext);
   const profileUserId = userData?._id;
 
   const [activeCommentFor, setActiveCommentFor] = useState(null);
