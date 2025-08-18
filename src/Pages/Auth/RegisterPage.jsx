@@ -3,10 +3,10 @@ import SigninComponent from "../../Components/SigninComponent";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "../../Shared/Schema/RegisterSchema";
-import { registerApi } from "../../Services/authServices";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addToast } from "@heroui/react";
+import { registerApi } from "../../Services/AuthServices";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);

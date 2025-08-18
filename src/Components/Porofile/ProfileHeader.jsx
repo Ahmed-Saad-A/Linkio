@@ -42,7 +42,6 @@ const handleFileChange = (e) => {
   if (file) {
     setSelectedFile(URL.createObjectURL(file));
     setIsPhotoModalOpen(true);
-    // setImagePreview();
   }
 };
 
