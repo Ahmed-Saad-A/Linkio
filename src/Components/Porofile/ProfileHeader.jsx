@@ -9,7 +9,7 @@ import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input
 import userPhoto from "/src/assets/user-circles.png";
 import profile from "/src/assets/profile.png";
 import { changePassword, uploadUserPhoto } from "../../Services/UserServices";
-import { AuthContext } from "../../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 
 const ProfileHeader = () => {

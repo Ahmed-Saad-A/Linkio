@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Spinner } from "@heroui/react";
-import { AuthContext } from "../Context/AuthContext";
+import { AuthContext } from "../Context/AuthContextProvider";
 import EmojiPicker from "emoji-picker-react";
 
 const CommentInput = ({

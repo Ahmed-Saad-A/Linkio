@@ -7,8 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginSchema } from "../../Shared/Schema/LoginSchema";
 import { addToast } from "@heroui/react";
 import Cookies from "js-cookie";
-import { AuthContext } from "../../Context/authContext";
 import { loginApi } from "../../Services/AuthServices";
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);

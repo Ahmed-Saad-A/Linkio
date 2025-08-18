@@ -3,7 +3,7 @@ import userPhoto from "/src/assets/user-circles.png";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { addToast, useDisclosure, Button, Spinner } from "@heroui/react";
-import { AuthContext } from "../../Context/AuthContext";
+import { AuthContext } from "../../Context/AuthContextProvider";
 import {
   deleteCommentApi,
   updateCommentApi,

@@ -8,7 +8,7 @@ import PostFooter from "./Post/PostFooter";
 import PostAction from "./Post/PostAction";
 import CommentInput from "./CommentInput";
 import { Spinner, useDisclosure, addToast } from "@heroui/react";
-import { AuthContext } from "../Context/AuthContext";
+import { AuthContext } from "../Context/AuthContextProvider";
 import { deletePostApi, updatePostApi } from "../Services/PostsServices";
 import CardDroupdown from "./CardDroupdown";
 import ModelComponent from "./ModelComponent";
