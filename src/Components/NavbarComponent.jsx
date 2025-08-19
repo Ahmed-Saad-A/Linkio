@@ -10,10 +10,10 @@ import userPhoto from "/src/assets/user-circles.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../Context/authContext";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink} from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../Context/AuthContextProvider";
 
 const NavbarComponent = () => {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@
   align-items: center;
   background-color: #e0e5ec;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden;
   transition: background-color 0.3s ease;
 }
@@ -43,9 +43,15 @@
 }
 
 @keyframes floatIcon {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
 }
 
 .form-group {
@@ -153,14 +159,23 @@
 }
 
 @media (max-width: 400px) {
-  .neumorphic-card { padding: 15px; }
-  .neumorphic-button { padding: 12px 20px; font-size: 14px; }
-  .h1 { font-size: 22px; }
-  .logo { font-size: 28px; }
+  .neumorphic-card {
+    padding: 15px;
+  }
+  .neumorphic-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+  .h1 {
+    font-size: 22px;
+  }
+  .logo {
+    font-size: 28px;
+  }
 }
 
 .input-error {
-  border: 1px solid #ff4d4f; 
+  border: 1px solid #ff4d4f;
   box-shadow: 0 0 0 0.2rem rgba(255, 77, 79, 0.25);
 }
 
@@ -185,8 +200,12 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* 🌙 Dark Mode */
