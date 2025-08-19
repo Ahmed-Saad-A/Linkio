@@ -45,7 +45,6 @@ const CommentInput = ({
     setComment((prev) => prev + (emojiData?.emoji || ""));
   };
 
-  // إغلاق البايكر عند الضغط خارج العنصر
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (pickerRef.current && !pickerRef.current.contains(e.target)) {
@@ -65,7 +64,7 @@ const CommentInput = ({
       <img
         className="w-10 h-10 rounded-full object-cover"
         onError={(e) => (e.target.src = userPhoto)}
-        src={avatar || userPhoto || userData?.avatar}
+        src={userData?.photo || userPhoto}
         alt="user photo"
       />
 
