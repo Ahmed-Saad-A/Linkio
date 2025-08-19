@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink} from "@fortawesome/free-solid-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../Context/AuthContextProvider";
 
 const NavbarComponent = () => {
@@ -42,6 +42,7 @@ const NavbarComponent = () => {
 
   return (
     <Navbar>
+      {/* Logo */}
       <NavbarBrand>
         <span
           className="cursor-pointer flex items-center gap-2 text-2xl font-extrabold tracking-wide bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text hover:scale-110 transition-transform duration-300"
@@ -55,51 +56,46 @@ const NavbarComponent = () => {
         </span>
       </NavbarBrand>
 
+      {/* Center links */}
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <NavLink
             to="/"
             className={({ isActive }) =>
               `relative px-3 py-1 rounded-md transition-all duration-300 
-            ${
-              isActive
-                ? "text-blue-600 font-bold bg-blue-50"
-                : "text-gray-700 hover:text-blue-600"
-            }`
+              ${
+                isActive
+                  ? "text-blue-600 font-bold bg-blue-50"
+                  : "text-gray-700 hover:text-blue-600"
+              }`
             }
           >
             Home
-            {({ isActive }) =>
-              isActive && (
-                <span className="absolute left-0 bottom-0 w-full h-[3px] bg-blue-500 rounded-full animate-[slideIn_0.3s_ease-in-out]"></span>
-              )
-            }
           </NavLink>
         </NavbarItem>
 
-        <NavbarItem>
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              `relative px-3 py-1 rounded-md transition-all duration-300 
-            ${
-              isActive
-                ? "text-blue-600 font-bold bg-blue-50"
-                : "text-gray-700 hover:text-blue-600"
-            }`
-            }
-          >
-            Profile
-            {({ isActive }) =>
-              isActive && (
-                <span className="absolute left-0 bottom-0 w-full h-[3px] bg-blue-500 rounded-full animate-[slideIn_0.3s_ease-in-out]"></span>
-              )
-            }
-          </NavLink>
-        </NavbarItem>
+        {isLoggedIn && (
+          <NavbarItem>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `relative px-3 py-1 rounded-md transition-all duration-300 
+                ${
+                  isActive
+                    ? "text-blue-600 font-bold bg-blue-50"
+                    : "text-gray-700 hover:text-blue-600"
+                }`
+              }
+            >
+              Profile
+            </NavLink>
+          </NavbarItem>
+        )}
       </NavbarContent>
 
+      {/* Right side */}
       <NavbarContent justify="end" className="items-center gap-3">
+        {/* Dark mode toggle */}
         <Button
           isIconOnly
           variant="light"
@@ -112,9 +108,10 @@ const NavbarComponent = () => {
           )}
         </Button>
 
+        {/* Avatar + Sign out */}
         {isLoggedIn && (
           <Avatar
-            src={userData?.avatar || userPhoto}
+            src={userData?.photo || userPhoto}
             size="sm"
             className="cursor-pointer"
             onClick={() => navigate("/profile")}
@@ -128,12 +125,12 @@ const NavbarComponent = () => {
         ) : (
           <>
             <NavbarItem className="hidden lg:flex">
-              <Button as={NavLink} color="default" variant="flat">
+              <Button as={NavLink} to="/login" color="default" variant="flat">
                 Sign In
               </Button>
             </NavbarItem>
             <NavbarItem>
-              <Button as={NavLink} color="primary" variant="flat">
+              <Button as={NavLink} to="/register" color="primary" variant="flat">
                 Sign Up
               </Button>
             </NavbarItem>

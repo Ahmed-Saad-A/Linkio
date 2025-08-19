@@ -11,10 +11,10 @@ import LoginPage from "./Pages/Auth/LoginPage";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import ProtectedAuthRoute from "./ProtectedRoute/ProtectedAuthRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
-const client = new QueryClient();
+
 const router = createBrowserRouter([
   {
     path: "",
@@ -76,12 +76,14 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
-      <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
         <RouterProvider router={router} />
-        {/* <TanStackRouterDevtools initialIsOpen={true} /> */}
       </QueryClientProvider>
     </>
   );

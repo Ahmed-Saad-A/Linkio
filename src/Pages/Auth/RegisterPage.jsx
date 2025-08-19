@@ -20,14 +20,7 @@ const RegisterPage = () => {
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: {
-      name: "",
-      email: "a7medsaad01025@gmail.com",
-      password: "A7med@123",
-      rePassword: "A7med@123",
-      dateOfBirth: "",
-      gender: "meal",
-    },
+
     resolver: zodResolver(RegisterSchema),
     mode: "onBlur",
   });

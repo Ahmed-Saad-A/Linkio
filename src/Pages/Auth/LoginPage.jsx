@@ -20,10 +20,7 @@ const LoginPage = () => {
     register,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      email: "ahmed.lab505@gmail.com",
-      password: "A7med@123",
-    },
+
     resolver: zodResolver(LoginSchema),
     mode: "onBlur",
   });

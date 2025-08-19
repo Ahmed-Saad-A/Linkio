@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { Button, Spinner } from "@heroui/react";
 import { PaperAirplaneIcon, FaceSmileIcon } from "@heroicons/react/24/outline";
 import { addPostApi } from "../../Services/PostsServices";
 import userPhoto from "/src/assets/user-circles.png";
 import EmojiPicker from "emoji-picker-react";
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 const CreatePost = ({ getAllPosts }) => {
   const [caption, setCaption] = useState("");
@@ -11,6 +12,7 @@ const CreatePost = ({ getAllPosts }) => {
   const [imagePreview, setImagePreview] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
+    const { userData } = useContext(AuthContext);
 
   const fileInputRef = useRef(null);
   const pickerRef = useRef(null);
@@ -77,8 +79,8 @@ const CreatePost = ({ getAllPosts }) => {
           <div className="w-full h-16 items-center flex justify-between px-5 gap-2">
             <img
               className="rounded-full w-10 h-10 object-cover border border-gray-300 dark:border-gray-600"
-              src={userPhoto}
-              alt="User"
+              src={userData?.photo || userPhoto}
+              alt="User photo"
             />
 
             <input

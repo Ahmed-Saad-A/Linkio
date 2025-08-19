@@ -31,3 +31,18 @@ export async function changePassword(password, newPassword) {
     return error.response ? error.response.data.error : error.message;
   }
 }
+
+
+export async function getUserPostsApi(userId) {
+  try {
+    const { data } = await axios.get(baseUrl + "users/" + userId + "/posts", {
+      headers: {
+        token: Cookies.get("token"),
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("Error fetching user posts:", error);
+    return { posts: [] };
+  }
+}

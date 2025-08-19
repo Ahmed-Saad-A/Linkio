@@ -1,27 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import ProfileHeader from "../Components/Porofile/ProfileHeader";
 import Post from "../Components/Post";
-import { getAllPostsApi } from "../Services/PostsServices";
 import { useQuery } from "@tanstack/react-query";
 import PostSkeleton from "../Components/PostSkeleton";
 import CreatePost from "../Components/Post/CreatePost";
 import { AuthContext } from "../Context/AuthContextProvider";
-
+import { getUserPostsApi } from "../Services/UserServices";
 
 const ProfilePage = () => {
   const { userData } = useContext(AuthContext);
   const profileUserId = userData?._id;
 
-  const [activeCommentFor, setActiveCommentFor] = useState(null);
-
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getAllPostsApi,
+    queryKey: ["userPosts", profileUserId],
+    queryFn: () => getUserPostsApi(profileUserId),
+    enabled: !!profileUserId,
   });
-
-  const filteredPosts =
-    data?.data?.posts?.filter((post) => post.user._id?.toString() === profileUserId?.toString()) || [];
-
   return (
     <section className="min-h-screen">
       <ProfileHeader />
@@ -30,16 +24,16 @@ const ProfilePage = () => {
 
       {isLoading ? (
         <PostSkeleton />
-      ) : filteredPosts.length > 0 ? (
-        filteredPosts.map((post) => (
+      ) : data?.posts?.length > 0 ? (
+        data.posts.map((post) => (
           <Post
-            key={post.id}
+            key={post._id}
             posts={post}
             commentsLimit={1}
             callback={refetch}
             getAllPosts={refetch}
-            activeCommentFor={activeCommentFor}
-            setActiveCommentFor={setActiveCommentFor}
+            // activeCommentFor={activeCommentFor}
+            // setActiveCommentFor={setActiveCommentFor}
           />
         ))
       ) : (

@@ -29,7 +29,7 @@ const ProfileHeader = () => {
 
   useEffect(() => {
     if (userData?.photo) {
-      setAvatar(userData.photo);
+      setAvatar(userData?.photo || userPhoto);
     }
   }, [userData]);
 
@@ -40,7 +40,7 @@ const ProfileHeader = () => {
 const handleFileChange = (e) => {
   const file = e.target.files[0];
   if (file) {
-    setSelectedFile(URL.createObjectURL(file));
+    setSelectedFile(file);
     setIsPhotoModalOpen(true);
   }
 };
@@ -198,7 +198,7 @@ return (
               {selectedFile && (
                 <div className="relative">
                   <img
-                    src={selectedFile}
+                    src={URL.createObjectURL(selectedFile)}
                     alt="Preview"
                     className="rounded-lg max-h-72"
                   />
