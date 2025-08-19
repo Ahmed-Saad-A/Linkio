@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, } from "@heroui/react";
 import userPhoto from "/src/assets/user-circles.png";
-import profile from "/src/assets/profile.png";
+import profile from "/src/assets/Profile.png";
 import { changePassword, uploadUserPhoto } from "../../Services/UserServices";
 import { AuthContext } from "../../Context/AuthContextProvider";
 

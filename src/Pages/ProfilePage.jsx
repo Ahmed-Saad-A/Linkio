@@ -1,5 +1,3 @@
-
-
 import React, { useState, useContext } from "react";
 import ProfileHeader from "../Components/Porofile/ProfileHeader";
 import Post from "../Components/Post";
