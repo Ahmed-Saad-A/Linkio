@@ -32,8 +32,6 @@ const ProfilePage = () => {
             commentsLimit={1}
             callback={refetch}
             getAllPosts={refetch}
-            // activeCommentFor={activeCommentFor}
-            // setActiveCommentFor={setActiveCommentFor}
           />
         ))
       ) : (

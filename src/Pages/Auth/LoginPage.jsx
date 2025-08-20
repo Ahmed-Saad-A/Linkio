@@ -9,11 +9,13 @@ import { addToast } from "@heroui/react";
 import Cookies from "js-cookie";
 import { loginApi } from "../../Services/AuthServices";
 import { AuthContext } from "../../Context/AuthContextProvider";
+import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/outline";
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     handleSubmit,
@@ -50,61 +52,83 @@ const LoginPage = () => {
       });
       setIsLoggedIn(true);
       const payhName = location.pathname;
-      navigate(payhName == '/login' ? '/login' : payhName);
+      navigate(payhName == "/login" ? "/login" : payhName);
     }
   }
 
-return (
-  <section className="auth-body flex justify-center items-center min-h-screen">
-    <div className="text-center">
-      <SigninComponent />
+  return (
+    <section className="auth-body flex justify-center items-center min-h-screen">
+      <div className="text-center">
+        <SigninComponent />
 
-      <form
-        onSubmit={handleSubmit(handleLogin)}
-        className="mx-auto inline-block"
-      >
-        <div className={`${style.neumorphic} ${style["neumorphic-card"]}`}>
-          <h2 className={`${style.h1} text-2xl`}>Sign In</h2>
+        <form
+          onSubmit={handleSubmit(handleLogin)}
+          className="mx-auto inline-block"
+        >
+          <div className={`${style.neumorphic} ${style["neumorphic-card"]}`}>
+            <h2 className={`${style.h1} text-2xl`}>Sign In</h2>
 
-          <input
-            type="email"
-            {...register("email")}
-            className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-              errors.email ? style["input-error"] : ""
-            }`}
-            placeholder="Email"
-          />
+            <input
+              type="email"
+              {...register("email")}
+              className={`${style.neumorphic} ${style["neumorphic-input"]} ${
+                errors.email ? style["input-error"] : ""
+              }`}
+              placeholder="Email"
+            />
 
-          <input
+            {/* <input
             type="password"
             {...register("password")}
             className={`${style.neumorphic} ${style["neumorphic-input"]} ${
               errors.password ? style["input-error"] : ""
             }`}
             placeholder="Password"
-          />
+          /> */}
 
-          <button
-            type="submit"
-            className={`mt-5 ${style.neumorphic} ${style["neumorphic-button"]}`}
-            disabled={isLoading}
-          >
-            {isLoading ? <span className={style.loader}></span> : "Sign In"}
-          </button>
+            <div className="relative w-full">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password")}
+                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
+                  errors.password ? style["input-error"] : ""
+                } w-full pr-10`}
+                placeholder="Password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 top-5 right-2 flex items-center text-green-500"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="w-5 h-5" />
+                ) : (
+                  <EyeIcon className="w-5 h-5" />
+                )}
+              </button>
+            </div>
 
-          <p style={{ marginTop: "15px", color: "#6d7582", fontSize: "14px" }}>
-            Don't have an account?{" "}
-            <Link to={"/register"} replace style={{ color: "#4a90e2" }}>
-              Sign up
-            </Link>
-          </p>
-        </div>
-      </form>
-    </div>
-  </section>
-);
+            <button
+              type="submit"
+              className={`mt-5 ${style.neumorphic} ${style["neumorphic-button"]}`}
+              disabled={isLoading}
+            >
+              {isLoading ? <span className={style.loader}></span> : "Sign In"}
+            </button>
 
-
+            <p
+              style={{ marginTop: "15px", color: "#6d7582", fontSize: "14px" }}
+            >
+              Don't have an account?{" "}
+              <Link to={"/register"} replace style={{ color: "#4a90e2" }}>
+                Sign up
+              </Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
 };
 
 export default LoginPage;

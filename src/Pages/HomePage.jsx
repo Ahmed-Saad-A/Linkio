@@ -1,44 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getAllPostsApi } from "../Services/PostsServices";
 import Post from "./../Components/Post";
 import CreatePost from "../Components/Post/CreatePost";
 import PostSkeleton from "../Components/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "@heroui/react";
+import { ArrowUpIcon } from "@heroicons/react/24/solid";
 
 const HomePage = () => {
-  const [activeCommentFor, setActiveCommentFor] = useState(null);
+  const [lastPostId, setLastPostId] = useState(null);
+  const [newPostsCount, setNewPostsCount] = useState(0);
 
-  const { data, refetch, isLoading, isFetching } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPostsApi,
-    staleTime: 1000 * 60 * 2,
-  }
-);
+    refetchInterval: 10000,
+  });
+
+  useEffect(() => {
+    if (data?.data?.posts?.length) {
+      const latestId = data.data.posts[0].id;
+
+      if (!lastPostId) {
+        setLastPostId(latestId);
+      } else if (latestId !== lastPostId) {
+        const newPosts = data.data.posts.filter((p) => p.id > lastPostId);
+        setNewPostsCount(newPosts.length);
+      }
+    }
+  }, [data, lastPostId]);
+
+  const handleShowNewPosts = () => {
+    if (data?.data?.posts?.length) {
+      setLastPostId(data.data.posts[0].id);
+    }
+    setNewPostsCount(0);
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    refetch();
+  };
+  
 
   return (
-    <>
+    <div className="relative">
       <CreatePost getAllPosts={refetch} />
 
-      {isFetching && !isLoading && (
-        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50">
-          <button className="relative flex top-16 items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg border border-gray-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-blue-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 9.75L12 3l9 6.75V21a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 21V9.75z"
-              />
-            </svg>
-
-            <span className="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"></span>
+      {/* "new posts" */}
+      {newPostsCount > 0 && (
+        <div className="sticky top-16 flex justify-center z-50">
+          <button
+            onClick={handleShowNewPosts}
+            className="flex gap-3 items-center content-center px-4 py-2 bg-pink-600 text-white rounded-full shadow-md animate-bounce"
+          >
+            <ArrowUpIcon className="w-5 h-5" />
+            {newPostsCount} new post{newPostsCount > 1 ? "s" : ""}
           </button>
         </div>
       )}
@@ -53,14 +68,12 @@ const HomePage = () => {
             key={post.id}
             commentsLimit={1}
             getAllPosts={refetch}
-            activeCommentFor={activeCommentFor}
-            setActiveCommentFor={setActiveCommentFor}
           />
         ))
       ) : (
         <PostSkeleton />
       )}
-    </>
+    </div>
   );
 };
 
