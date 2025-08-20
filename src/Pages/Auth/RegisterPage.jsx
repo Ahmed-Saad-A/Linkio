@@ -23,7 +23,6 @@ const RegisterPage = () => {
     formState: { errors },
     reset,
   } = useForm({
-
     resolver: zodResolver(RegisterSchema),
     mode: "onBlur",
   });

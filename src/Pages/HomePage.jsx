@@ -9,7 +9,7 @@ import { ArrowUpIcon } from "@heroicons/react/24/solid";
 const HomePage = () => {
   const [lastPostId, setLastPostId] = useState(null);
   const [newPostsCount, setNewPostsCount] = useState(0);
-
+  const [activeCommentFor, setActiveCommentFor] = useState(null);
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPostsApi,
@@ -39,7 +39,6 @@ const HomePage = () => {
 
     refetch();
   };
-  
 
   return (
     <div className="relative">
@@ -68,6 +67,8 @@ const HomePage = () => {
             key={post.id}
             commentsLimit={1}
             getAllPosts={refetch}
+            activeCommentFor={activeCommentFor}
+            setActiveCommentFor={setActiveCommentFor}
           />
         ))
       ) : (

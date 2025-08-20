@@ -17,7 +17,6 @@ const CommentInput = ({
   isActive,
   setActiveCommentFor,
   callback,
-  avatar,
 }) => {
   const [commentContent, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +67,7 @@ const CommentInput = ({
         alt="user photo"
       />
 
-      <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-xl flex flex-col gap-2 flex-1 transition-colors">
+      <div className="bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-xl flex flex-col gap-2 flex-1 transition-colors md:flex-row">
         <input
           type="text"
           value={commentContent}
@@ -82,7 +81,7 @@ const CommentInput = ({
         />
 
         {isActive && (
-          <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400 md:ml-auto">
             <button className="hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
               <PhotoIcon className="w-5 h-5" />
             </button>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ProfileHeader from "../Components/Porofile/ProfileHeader";
 import Post from "../Components/Post";
 import { useQuery } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { AuthContext } from "../Context/AuthContextProvider";
 import { getUserPostsApi } from "../Services/UserServices";
 
 const ProfilePage = () => {
+  const [activeCommentFor, setActiveCommentFor] = useState(null);
   const { userData } = useContext(AuthContext);
   const profileUserId = userData?._id;
 
@@ -32,6 +33,8 @@ const ProfilePage = () => {
             commentsLimit={1}
             callback={refetch}
             getAllPosts={refetch}
+            activeCommentFor={activeCommentFor}
+            setActiveCommentFor={setActiveCommentFor}
           />
         ))
       ) : (
