@@ -10,6 +10,8 @@ const HomePage = () => {
   const [lastPostId, setLastPostId] = useState(null);
   const [newPostsCount, setNewPostsCount] = useState(0);
   const [activeCommentFor, setActiveCommentFor] = useState(null);
+  const [showNewPostsButton, setShowNewPostsButton] = useState(false);
+
   const { data, refetch, isLoading } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPostsApi,
@@ -29,14 +31,26 @@ const HomePage = () => {
     }
   }, [data, lastPostId]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100 && newPostsCount > 0) {
+        setShowNewPostsButton(true);
+      } else {
+        setShowNewPostsButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [newPostsCount]);
+
   const handleShowNewPosts = () => {
     if (data?.data?.posts?.length) {
       setLastPostId(data.data.posts[0].id);
     }
     setNewPostsCount(0);
-
+    setShowNewPostsButton(false); 
     window.scrollTo({ top: 0, behavior: "smooth" });
-
     refetch();
   };
 
@@ -45,7 +59,7 @@ const HomePage = () => {
       <CreatePost getAllPosts={refetch} />
 
       {/* "new posts" */}
-      {newPostsCount > 0 && (
+      {showNewPostsButton && (
         <div className="sticky top-16 flex justify-center z-50">
           <button
             onClick={handleShowNewPosts}

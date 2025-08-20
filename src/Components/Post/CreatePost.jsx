@@ -12,7 +12,7 @@ const CreatePost = ({ getAllPosts }) => {
   const [imagePreview, setImagePreview] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
-    const { userData } = useContext(AuthContext);
+  const { userData } = useContext(AuthContext);
 
   const fileInputRef = useRef(null);
   const pickerRef = useRef(null);
@@ -76,9 +76,9 @@ const CreatePost = ({ getAllPosts }) => {
           className="bg-white dark:bg-gray-900 w-full rounded-md shadow-md transition-colors duration-300"
         >
           {/* Input Row */}
-          <div className="w-full h-16 items-center flex justify-between px-5 gap-2">
+          <div className="w-full h-16 flex items-center px-3 gap-2 overflow-hidden">
             <img
-              className="rounded-full w-10 h-10 object-cover border border-gray-300 dark:border-gray-600"
+              className="rounded-full w-10 h-10 object-cover border border-gray-300 dark:border-gray-600 shrink-0"
               src={userData?.photo || userPhoto}
               alt="User photo"
             />
@@ -87,12 +87,12 @@ const CreatePost = ({ getAllPosts }) => {
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               type="text"
-              className="flex-1 rounded-full h-10 bg-gray-200 dark:bg-gray-700 dark:text-gray-200 px-5 outline-none"
+              className="flex-1 min-w-0 rounded-full h-10 bg-gray-200 dark:bg-gray-700 dark:text-gray-200 px-4 outline-none"
               placeholder="What's on your mind?"
             />
 
             {/* Emoji Button */}
-            <div className="relative" ref={pickerRef}>
+            <div className="relative shrink-0" ref={pickerRef}>
               <button
                 type="button"
                 onClick={togglePicker}
@@ -103,11 +103,16 @@ const CreatePost = ({ getAllPosts }) => {
               </button>
 
               {showPicker && (
-                <div className="absolute top-12 right-0 z-50 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                  <div className="flex justify-end p-1">
-                
+                <div
+                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+                  onClick={() => setShowPicker(false)}
+                >
+                  <div
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-72 sm:w-96 max-h-[80vh] overflow-y-auto"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <EmojiPicker onEmojiClick={handleEmojiClick} />
                   </div>
-                  <EmojiPicker onEmojiClick={handleEmojiClick} />
                 </div>
               )}
             </div>
@@ -117,6 +122,7 @@ const CreatePost = ({ getAllPosts }) => {
               isIconOnly
               variant="light"
               type="submit"
+              className="shrink-0"
               isDisabled={(!caption.trim() && !imageFile) || isLoading}
             >
               {isLoading ? (
