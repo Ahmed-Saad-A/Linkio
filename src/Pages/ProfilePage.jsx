@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import ProfileHeader from "../Components/Porofile/ProfileHeader";
-import Post from "../Components/Post";
 import { useQuery } from "@tanstack/react-query";
-import PostSkeleton from "../Components/PostSkeleton";
 import CreatePost from "../Components/Post/CreatePost";
 import { AuthContext } from "../Context/AuthContextProvider";
 import { getUserPostsApi } from "../Services/UserServices";
+import PostSkeleton from "../Components/Post/PostSkeleton";
+import Index from "../Components/Post";
 
 const ProfilePage = () => {
   const [activeCommentFor, setActiveCommentFor] = useState(null);
@@ -27,7 +27,7 @@ const ProfilePage = () => {
         <PostSkeleton />
       ) : data?.posts?.length > 0 ? (
         data.posts.map((post) => (
-          <Post
+          <Index
             key={post._id}
             posts={post}
             commentsLimit={1}

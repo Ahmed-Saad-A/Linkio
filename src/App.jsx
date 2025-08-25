@@ -12,6 +12,7 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import ProtectedAuthRoute from "./ProtectedRoute/ProtectedAuthRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import Settings from "./Pages/Settings";
 
 
 
@@ -68,6 +69,15 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             {" "}
             <ProfilePage />{" "}
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <ProtectedRoute>
+            {" "}
+            <Settings />{" "}
           </ProtectedRoute>
         ),
       },

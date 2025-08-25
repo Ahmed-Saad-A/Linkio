@@ -1,22 +1,22 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
-import CardHeader from "./Post/CardHeader";
-import PostBody from "./Post/PostBody";
-import PostComment from "./Post/PostComment";
-import PostFooter from "./Post/PostFooter";
-import PostAction from "./Post/PostAction";
-import CommentInput from "./CommentInput";
+import CardHeader from "./CardHeader";
+import PostBody from "./PostBody";
+import PostComment from "./PostComment";
+import PostFooter from "./PostFooter";
+import PostAction from "./PostAction";
+import CommentInput from "../CommentInput";
 import { Spinner, useDisclosure, addToast } from "@heroui/react";
-import { AuthContext } from "../Context/AuthContextProvider";
-import { deletePostApi, updatePostApi } from "../Services/PostsServices";
-import CardDroupdown from "./CardDroupdown";
-import ModelComponent from "./ModelComponent";
-import EditPost from "./Post/EditPost";
+import { AuthContext } from "../../Context/AuthContextProvider";
+import { deletePostApi, updatePostApi } from "../../Services/PostsServices";
+import CardDroupdown from "../CardDroupdown";
+import ModelComponent from "../ModelComponent";
+import EditPost from "./EditPost";
 
 dayjs.extend(relativeTime);
 
-const Post = ({
+const Index = ({
   posts,
   commentsLimit,
   callback,
@@ -217,4 +217,4 @@ return (
 
 };
 
-export default Post;
+export default Index;

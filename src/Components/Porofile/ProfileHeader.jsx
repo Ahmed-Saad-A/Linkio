@@ -23,8 +23,10 @@ import profile from "/src/assets/Profile.png";
 import { changePassword, uploadUserPhoto } from "../../Services/UserServices";
 import { AuthContext } from "../../Context/AuthContextProvider";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 const ProfileHeader = () => {
+  const navigate = useNavigate();
   const { userData } = useContext(AuthContext);
   const [avatar, setAvatar] = useState(userPhoto);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -55,7 +57,16 @@ const ProfileHeader = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        addToast({
+          title: "Error",
+          description: "File size exceeds 5MB limit",
+          color: "danger",
+        });
+        return;
+      }
       setSelectedFile(file);
       setIsPhotoModalOpen(true);
     }
@@ -169,7 +180,9 @@ const ProfileHeader = () => {
             </div>
 
             <div className="mt-3 md:mt-0 md:ml-6 text-center md:text-left">
-              <h2 className="text-xl md:text-2xl font-bold">Ahmed Saad</h2>
+              <h2 className="text-xl md:text-2xl font-bold">
+                {userData?.name || "Loading..."}
+              </h2>
             </div>
           </div>
 
@@ -189,11 +202,19 @@ const ProfileHeader = () => {
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions">
                 <DropdownItem
+                  key="Setting"
+                  onPress={() => navigate("/settings")}
+                >
+                  Your Setting
+                </DropdownItem>
+
+                <DropdownItem
                   key="password"
                   onPress={() => setIsPasswordModalOpen(true)}
                 >
                   Change Password
                 </DropdownItem>
+                
               </DropdownMenu>
             </Dropdown>
           </div>

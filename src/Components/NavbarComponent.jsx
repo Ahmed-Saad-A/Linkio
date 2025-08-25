@@ -5,6 +5,10 @@ import {
   NavbarItem,
   Button,
   Avatar,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from "@heroui/react";
 import userPhoto from "/src/assets/user-circles.png";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -14,6 +18,7 @@ import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../Context/AuthContextProvider";
+
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
@@ -62,7 +67,7 @@ const NavbarComponent = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `relative px-3 py-1 rounded-md transition-all duration-300 
+              `relative px-3 py-1 rounded-md transition-all duration-300 dark:text-pink-600 
               ${
                 isActive
                   ? "text-blue-600 font-bold bg-blue-50"
@@ -79,7 +84,7 @@ const NavbarComponent = () => {
             <NavLink
               to="/profile"
               className={({ isActive }) =>
-                `relative px-3 py-1 rounded-md transition-all duration-300 
+                `relative px-3 py-1 rounded-md transition-all duration-300 dark:text-pink-600
                 ${
                   isActive
                     ? "text-blue-600 font-bold bg-blue-50"
@@ -108,21 +113,48 @@ const NavbarComponent = () => {
           )}
         </Button>
 
-        {/* Avatar + Sign out */}
+        {/* Avatar + Dropdown */}
         {isLoggedIn && (
-          <Avatar
-            src={userData?.photo || userPhoto}
-            size="sm"
-            className="cursor-pointer"
-            onClick={() => navigate("/profile")}
-          />
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <div className="flex flex-col items-center cursor-pointer">
+                <Avatar
+                  src={userData?.photo || userPhoto}
+                  size="sm"
+                  className="cursor-pointer"
+                />
+              </div>
+            </DropdownTrigger>
+
+            <DropdownMenu aria-label="User menu" variant="flat">
+              {/* User info */}
+              <DropdownItem key="user" className="h-14 gap-2" isReadOnly>
+                <div className="flex items-center gap-3">
+                  <Avatar src={userData?.photo || userPhoto} size="sm" />
+                  <div>
+                    <p className="text-sm font-semibold">{userData?.name}</p>
+                    <p className="text-xs text-gray-500">{userData?.email}</p>
+                  </div>
+                </div>
+              </DropdownItem>
+
+              <DropdownItem key="profile" onClick={() => navigate("/profile")}>
+                Profile
+              </DropdownItem>
+              <DropdownItem
+                key="settings"
+                onClick={() => navigate("/settings")}
+              >
+                Settings
+              </DropdownItem>
+              <DropdownItem key="logout" color="danger" onClick={SignOut}>
+                Sign out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         )}
 
-        {isLoggedIn ? (
-          <Button onPress={SignOut} color="danger" variant="flat">
-            Sign Out
-          </Button>
-        ) : (
+        {!isLoggedIn && (
           <>
             <NavbarItem className="hidden lg:flex">
               <Button as={NavLink} to="/login" color="default" variant="flat">
@@ -130,7 +162,12 @@ const NavbarComponent = () => {
               </Button>
             </NavbarItem>
             <NavbarItem>
-              <Button as={NavLink} to="/register" color="primary" variant="flat">
+              <Button
+                as={NavLink}
+                to="/register"
+                color="primary"
+                variant="flat"
+              >
                 Sign Up
               </Button>
             </NavbarItem>
