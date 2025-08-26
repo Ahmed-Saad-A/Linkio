@@ -57,13 +57,13 @@ const LoginPage = () => {
   }
 
   return (
-    <section className="auth-body flex justify-center items-center min-h-screen">
+    <section className="auth-body flex justify-center items-center min-h-screen mb-24">
       <div className="text-center">
         <SigninComponent />
 
         <form
           onSubmit={handleSubmit(handleLogin)}
-          className="mx-auto inline-block"
+          className="mx-auto inline-block  dark:bg-black dark:text-white"
         >
           <div className={`${style.neumorphic} ${style["neumorphic-card"]}`}>
             <h2 className={`${style.h1} text-2xl`}>Sign In</h2>

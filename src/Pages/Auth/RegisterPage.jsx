@@ -65,7 +65,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <section className="auth-body flex justify-center items-center min-h-screen">
+    <section className="auth-body flex justify-center items-center min-h-screen mb-24">
       <div className="text-center">
         <SigninComponent />
 
