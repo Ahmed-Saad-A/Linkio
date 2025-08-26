@@ -5,7 +5,7 @@ import CreatePost from "../Components/Post/CreatePost";
 import { AuthContext } from "../Context/AuthContextProvider";
 import { getUserPostsApi } from "../Services/UserServices";
 import PostSkeleton from "../Components/Post/PostSkeleton";
-import Index from '../Components/Post';
+import Index from '../Components/Post/index.jsx';
 
 
 const ProfilePage = () => {
