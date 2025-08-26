@@ -18,7 +18,7 @@ const PostBody = ({ caption, image }) => {
 
   return (
     <div>
-      <p>{caption}</p>
+      <p className="break-words overflow-hidden">{caption}</p>
 
       {image && (
         <img
