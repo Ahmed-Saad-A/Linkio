@@ -3,7 +3,7 @@ import { getAllPostsApi } from "../Services/PostsServices";
 import CreatePost from "../Components/Post/CreatePost";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
-import Index from './../Components/Post/Index';
+import Index from './../Components/Post/index';
 import PostSkeleton from './../Components/Post/PostSkeleton';
 
 const HomePage = () => {
