@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import ProfileHeader from "../Components/Porofile/ProfileHeader";
+import ProfileHeader from "../Components/Profile/ProfileHeader.jsx";
 import { useQuery } from "@tanstack/react-query";
 import CreatePost from "../Components/Post/CreatePost";
 import { AuthContext } from "../Context/AuthContextProvider";
