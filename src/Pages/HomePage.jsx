@@ -4,7 +4,7 @@ import CreatePost from "../Components/Post/CreatePost";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
 import PostSkeleton from './../Components/Post/PostSkeleton';
-import Post from "./../Components/Post/index";
+import Post from "../Components/Post";
 
 const HomePage = () => {
   const [lastPostId, setLastPostId] = useState(null);

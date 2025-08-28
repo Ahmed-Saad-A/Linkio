@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSinglePostApi } from '../Services/PostsServices';
-import Post from './../Components/Post/index';
+import Post from './../Components/Post';
 
 const PostDetailsPage = () => {
   const [post, setpost] = useState(null);

@@ -5,7 +5,7 @@ import CreatePost from "../Components/Post/CreatePost";
 import { AuthContext } from "../Context/AuthContextProvider";
 import { getUserPostsApi } from "../Services/UserServices";
 import PostSkeleton from "../Components/Post/PostSkeleton";
-import Index from '../Components/Post';
+import Post from "../Components/Post";
 
 
 const ProfilePage = () => {
@@ -28,7 +28,7 @@ const ProfilePage = () => {
         <PostSkeleton />
       ) : data?.posts?.length > 0 ? (
         data.posts.map((post) => (
-          <Index
+          <Post
             key={post._id}
             posts={post}
             commentsLimit={1}
