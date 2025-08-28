@@ -3,8 +3,8 @@ import { getAllPostsApi } from "../Services/PostsServices";
 import CreatePost from "../Components/Post/CreatePost";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
-import Index from './../Components/Post/index';
 import PostSkeleton from './../Components/Post/PostSkeleton';
+import Post from "./../Components/Post/index";
 
 const HomePage = () => {
   const [lastPostId, setLastPostId] = useState(null);
@@ -75,7 +75,7 @@ const HomePage = () => {
         <PostSkeleton />
       ) : data?.data?.posts?.length > 0 ? (
         data.data.posts.map((post) => (
-          <Index
+          <Post
             callback={refetch}
             posts={post}
             key={post.id}

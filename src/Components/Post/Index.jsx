@@ -16,7 +16,7 @@ import EditPost from "./EditPost";
 
 dayjs.extend(relativeTime);
 
-const Index = ({
+const Post = ({
   posts,
   commentsLimit,
   callback,
@@ -217,4 +217,4 @@ return (
 
 };
 
-export default Index;
+export default Post;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSinglePostApi } from '../Services/PostsServices';
-import Index from '../Components/Post';
+import Post from './../Components/Post/index';
 
 const PostDetailsPage = () => {
   const [post, setpost] = useState(null);
@@ -23,7 +23,7 @@ const PostDetailsPage = () => {
 
   return (
     <div className='my-10'>
-      {post && <Index posts={post} />}
+      {post && <Post posts={post} />}
     </div>
   )
 }
