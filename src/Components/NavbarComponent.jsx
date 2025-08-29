@@ -19,7 +19,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../Context/AuthContextProvider";
 
-
 const NavbarComponent = () => {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, userData } = useContext(AuthContext);
@@ -111,6 +110,9 @@ const NavbarComponent = () => {
           ) : (
             <MoonIcon className="w-5 h-5 text-gray-700" />
           )}
+          <span className="sr-only">
+            {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          </span>
         </Button>
 
         {/* Avatar + Dropdown */}

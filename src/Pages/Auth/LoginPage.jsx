@@ -60,7 +60,7 @@ const LoginPage = () => {
   }
 
   return (
-    <section className="auth-body flex justify-center items-center min-h-screen mb-24">
+    <section className="auth-body flex justify-center items-center min-h-screen mb-24 dark:text-white">
       <div className="text-center">
         <SigninComponent />
 
@@ -69,7 +69,7 @@ const LoginPage = () => {
           className="mx-auto inline-block  dark:bg-black dark:text-white"
         >
           <div className={`${style.neumorphic} ${style["neumorphic-card"]}`}>
-            <h2 className={`${style.h1} text-2xl`}>Sign In</h2>
+            <h2 className={`${style.h1} text-2xl text-white`}>Sign In</h2>
 
             <input
               type="email"
@@ -89,19 +89,24 @@ const LoginPage = () => {
             placeholder="Password"
           /> */}
 
-            <div className="relative w-full">
+            <div className={`${style["form-group"]} relative`}>
               <input
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
                 className={`${style.neumorphic} ${style["neumorphic-input"]} ${
                   errors.password ? style["input-error"] : ""
-                } w-full pr-10`}
+                } pr-10`} // ← مهم لترك مساحة للأيقونة
                 placeholder="Password"
               />
+              {errors.password && (
+                <span className={style["error-message"]}>
+                  {errors.password.message}
+                </span>
+              )}
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 top-5 right-2 flex items-center text-green-500"
+                className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center text-green-500"
               >
                 {showPassword ? (
                   <EyeSlashIcon className="w-5 h-5" />
@@ -123,7 +128,7 @@ const LoginPage = () => {
               style={{ marginTop: "15px", color: "#6d7582", fontSize: "14px" }}
             >
               Don't have an account?{" "}
-              <Link to={"/register"} replace style={{ color: "#4a90e2" }}>
+              <Link to={"/register"} replace style={{ color: "#0036ff" }}>
                 Sign up
               </Link>
             </p>

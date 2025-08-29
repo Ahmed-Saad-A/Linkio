@@ -244,7 +244,7 @@ const RegisterPage = () => {
               style={{ marginTop: "15px", color: "#6d7582", fontSize: "14px" }}
             >
               Already have an account?{" "}
-              <Link to={"/login"} replace style={{ color: "#4a90e2" }}>
+              <Link to={"/login"} replace style={{ color: "#0036ff" }}>
                 Sig In
               </Link>
             </p>

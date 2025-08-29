@@ -20,28 +20,19 @@ import {
 } from "@heroui/react";
 import userPhoto from "/src/assets/user-circles.png";
 import profile from "/src/assets/Profile.png";
-import { changePassword, uploadUserPhoto } from "../../Services/UserServices";
 import { AuthContext } from "../../Context/AuthContextProvider";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { uploadUserPhoto } from "../../Services/UserServices";
 
 const ProfileHeader = () => {
-  const navigate = useNavigate();
   const { userData } = useContext(AuthContext);
   const [avatar, setAvatar] = useState(userPhoto);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [showCurrent, setShowCurrent] = useState(false);
-  const [showNew, setShowNew] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
 
   const fileInputRef = useRef();
 
@@ -111,38 +102,6 @@ const ProfileHeader = () => {
     setIsPhotoModalOpen(false);
   };
 
-  const handleChangePassword = async () => {
-    if (newPassword !== confirmPassword) {
-      addToast({
-        title: "Error",
-        description: "New password and confirm password do not match",
-        color: "danger",
-      });
-      return;
-    }
-
-    setIsUploading(true);
-    try {
-      await changePassword(currentPassword, newPassword);
-      addToast({
-        title: "Success",
-        description: "Password updated successfully",
-        color: "success",
-      });
-      setIsPasswordModalOpen(false);
-      setCurrentPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
-    } catch (error) {
-      addToast({
-        title: "Error",
-        description: error || "Something went wrong",
-        color: "danger",
-      });
-    } finally {
-      setIsUploading(false);
-    }
-  };
 
   return (
     <div className="relative w-full mb-10">
@@ -186,38 +145,6 @@ const ProfileHeader = () => {
             </div>
           </div>
 
-          {/* Settings Dropdown */}
-          <div className="mt-4 md:mt-0">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button
-                  variant="light"
-                  className="flex items-center gap-2 border px-3 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-pink-500"
-                >
-                  <Cog6ToothIcon className="w-5 h-5 text-gray-700 dark:text-white" />
-                  <span className="font-medium text-gray-700 dark:text-white">
-                    Settings
-                  </span>
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Profile Actions">
-                <DropdownItem
-                  key="Setting"
-                  onPress={() => navigate("/settings")}
-                >
-                  Your Setting
-                </DropdownItem>
-
-                <DropdownItem
-                  key="password"
-                  onPress={() => setIsPasswordModalOpen(true)}
-                >
-                  Change Password
-                </DropdownItem>
-                
-              </DropdownMenu>
-            </Dropdown>
-          </div>
         </div>
       </div>
 
@@ -267,98 +194,7 @@ const ProfileHeader = () => {
         </ModalContent>
       </Modal>
 
-      {/* Password Modal */}
-      <Modal
-        isOpen={isPasswordModalOpen}
-        onOpenChange={setIsPasswordModalOpen}
-        placement="center"
-      >
-        <ModalContent>
-          {() => (
-            <>
-              <ModalHeader className="text-lg font-bold">
-                Change Password
-              </ModalHeader>
-              <ModalBody>
-                <Input
-                  label="Current Password"
-                  type={showCurrent ? "text" : "password"}
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  endContent={
-                    <button
-                      type="button"
-                      onClick={() => setShowCurrent((prev) => !prev)}
-                      className="focus:outline-none"
-                    >
-                      {showCurrent ? (
-                        <EyeSlashIcon className="h-5 w-5 text-green-500" />
-                      ) : (
-                        <EyeIcon className="h-5 w-5 text-green-500" />
-                      )}
-                    </button>
-                  }
-                />
 
-                <Input
-                  label="New Password"
-                  type={showNew ? "text" : "password"}
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  endContent={
-                    <button
-                      type="button"
-                      onClick={() => setShowNew((prev) => !prev)}
-                      className="focus:outline-none"
-                    >
-                      {showNew ? (
-                        <EyeSlashIcon className="h-5 w-5 text-green-500" />
-                      ) : (
-                        <EyeIcon className="h-5 w-5 text-green-500" />
-                      )}
-                    </button>
-                  }
-                />
-
-                <Input
-                  label="Confirm New Password"
-                  type={showConfirm ? "text" : "password"}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  endContent={
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirm((prev) => !prev)}
-                      className="focus:outline-none"
-                    >
-                      {showConfirm ? (
-                        <EyeSlashIcon className="h-5 w-5 text-green-500" />
-                      ) : (
-                        <EyeIcon className="h-5 w-5 text-green-500" />
-                      )}
-                    </button>
-                  }
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  variant="light"
-                  onPress={() => setIsPasswordModalOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  color="primary"
-                  onPress={handleChangePassword}
-                  isLoading={isUploading}
-                >
-                  Save
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </div>
   );
 };
