@@ -11,7 +11,6 @@ export default function AuthContextProvider({ children }) {
 
   async function getUserData() {
     const response = await getUserProfileApi();
-    console.log("🚀 ~ getUserData ~ response:", response);
     if (response.message === "success") {
       setUserData(response.user);
     }

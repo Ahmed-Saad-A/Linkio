@@ -107,7 +107,7 @@ const CreatePost = ({ getAllPosts }) => {
                   className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
                   onClick={() => setShowPicker(false)}
                 >
-                  <div
+                  <div 
                     className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-72 sm:w-96 max-h-[80vh] overflow-y-auto"
                     onClick={(e) => e.stopPropagation()}
                   >

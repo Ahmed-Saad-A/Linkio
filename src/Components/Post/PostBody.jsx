@@ -23,13 +23,13 @@ const PostBody = ({ caption, image }) => {
       {image && (
         <img
           src={image}
-          className="w-full h-100 object-cover mt-5 cursor-pointer rounded-lg"
+          className="w-full h-100 object-contain object-center  mt-5 cursor-pointer rounded-lg"
           alt=""
           onClick={() => handleImageClick(image)}
         />
       )}
 
-      <Modal isOpen={isOpen} onClose={onClose} size="4xl" placement="center">
+      <Modal isOpen={isOpen} onClose={onClose} size="2xl" placement="center">
         <ModalContent>
           <ModalBody className="p-0 relative">
             <button
@@ -55,7 +55,7 @@ const PostBody = ({ caption, image }) => {
             <img
               src={selectedImage}
               alt="full view"
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain object-center"
             />
           </ModalBody>
         </ModalContent>

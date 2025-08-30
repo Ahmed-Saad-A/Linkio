@@ -96,7 +96,7 @@ const PostComment = ({ comment, getAllPosts }) => {
           className="w-10 h-10 rounded-full object-cover"
           onError={(e) => (e.target.src = userPhoto)}
           // src={comment.commentCreator.photo}
-          src={userPhoto}
+          src={userData?.photo || userPhoto}
           alt="user"
         />
       </div>

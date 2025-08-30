@@ -3,7 +3,7 @@ import { getAllPostsApi } from "../Services/PostsServices";
 import CreatePost from "../Components/Post/CreatePost";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
-import PostSkeleton from './../Components/Post/PostSkeleton';
+import PostSkeleton from "./../Components/Post/PostSkeleton";
 import Post from "../Components/Post";
 
 const HomePage = () => {
@@ -31,12 +31,17 @@ const HomePage = () => {
     }
   }, [data, lastPostId]);
 
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100 && newPostsCount > 0) {
         setShowNewPostsButton(true);
       } else {
         setShowNewPostsButton(false);
+      }
+
+      if (window.scrollY === 0 && newPostsCount > 0) {
+        setNewPostsCount(0);
       }
     };
 
@@ -49,7 +54,7 @@ const HomePage = () => {
       setLastPostId(data.data.posts[0].id);
     }
     setNewPostsCount(0);
-    setShowNewPostsButton(false); 
+    setShowNewPostsButton(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
     refetch();
   };

@@ -12,12 +12,7 @@ import { Button, Spinner } from "@heroui/react";
 import { AuthContext } from "../Context/AuthContextProvider";
 import EmojiPicker from "emoji-picker-react";
 
-const CommentInput = ({
-  postId,
-  isActive,
-  setActiveCommentFor,
-  callback,
-}) => {
+const CommentInput = ({ postId, isActive, setActiveCommentFor, callback }) => {
   const [commentContent, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
@@ -76,7 +71,7 @@ const CommentInput = ({
           className="w-full outline-none text-sm bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
           onFocus={() => {
             setActiveCommentFor(postId);
-            setShowPicker(false); 
+            setShowPicker(false);
           }}
         />
 
@@ -100,15 +95,16 @@ const CommentInput = ({
               </button>
 
               {showPicker && (
-                <div className="absolute bottom-10 left-0 z-50 bg-white rounded-lg shadow-lg">
-                  <div className="flex justify-end p-1">
-                    <button
-                      onClick={() => setShowPicker(false)}
-                      className="text-gray-500 hover:text-red-500"
-                    >
-                    </button>
+                <div
+                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+                  onClick={() => setShowPicker(false)}
+                >
+                  <div
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-72 sm:w-96 max-h-[80vh] overflow-y-auto"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <EmojiPicker onEmojiClick={handleEmojiClick} />
                   </div>
-                  <EmojiPicker onEmojiClick={handleEmojiClick} />
                 </div>
               )}
             </div>
