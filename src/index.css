@@ -65,7 +65,7 @@
   }
 
   .neumorphic {
-    @apply rounded-[20px] transition-all duration-300 ease-in-out;
+    @apply rounded-[20px] transition-all duration-300 ease-in-out bg-white;
     box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px #fff;
   }
   .dark .neumorphic {
