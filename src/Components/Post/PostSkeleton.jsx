@@ -1,6 +1,6 @@
 const PostSkeleton = () => {
 return (
-  <div className="bg-white dark:bg-gray-900 w-full rounded-md shadow-md h-auto py-3 px-3 my-5 animate-pulse transition-colors duration-300">
+  <div className="bg-white dark:bg-gray-900 w-full rounded-md shadow-md min-h-dvh py-3 px-3 my-5 animate-pulse transition-colors duration-300">
     <div className="w-full h-16 flex items-center justify-between">
       <div className="flex items-center space-x-3">
         <div className="rounded-full bg-gray-300 dark:bg-gray-700 w-10 h-10" />

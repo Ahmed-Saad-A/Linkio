@@ -28,34 +28,45 @@ const PostComment = ({ comment, getAllPosts }) => {
   const [editedContent, setEditedContent] = useState(comment.content);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function handleDeleteComment() {
-    try {
-      setIsDeleting(true);
-      const response = await deleteCommentApi(comment._id);
+async function handleDeleteComment() {
+  try {
+    setIsDeleting(true);
+    const response = await deleteCommentApi(comment._id);
 
-      if (response.message === "success") {
-        addToast({
-          title: "Success",
-          description: "Comment deleted successfully",
-          color: "success",
-          variant: "flat",
-        });
-        onClose();
-        await getAllPosts();
-      } else {
-        throw new Error(response.error?.message || "Failed to delete comment");
-      }
-    } catch (error) {
+    if (response?.message === "success") {
       addToast({
-        title: "Error",
-        description: error.message,
-        color: "danger",
+        title: "Success",
+        description: "Comment deleted successfully",
+        color: "success",
         variant: "flat",
       });
-    } finally {
-      setIsDeleting(false);
+      onClose();
+      await getAllPosts();
+    } else {
+      const errorMsg =
+        response?.message ||
+        response?.error?.message ||
+        "You can't delete this comment because you didn't create this post";
+
+      throw new Error(errorMsg);
     }
+  } catch (error) {
+    const serverMessage =
+      error?.response?.data?.message || 
+      error?.message || 
+      "Something went wrong"; 
+
+    addToast({
+      title: "Error",
+      description: serverMessage,
+      color: "danger",
+      variant: "flat",
+    });
+  } finally {
+    setIsDeleting(false);
   }
+}
+
 
   async function handleUpdateComment() {
     if (!editedContent.trim()) return;
@@ -86,6 +97,8 @@ const PostComment = ({ comment, getAllPosts }) => {
     } finally {
       setIsLoading(false);
     }
+  
+    
   }
 
   return (
@@ -96,7 +109,7 @@ const PostComment = ({ comment, getAllPosts }) => {
           className="w-10 h-10 rounded-full object-cover"
           onError={(e) => (e.target.src = userPhoto)}
           // src={comment.commentCreator.photo}
-          src={userData?.photo || userPhoto}
+          src={userPhoto}
           alt="user"
         />
       </div>

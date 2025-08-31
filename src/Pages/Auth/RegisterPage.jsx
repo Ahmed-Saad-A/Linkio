@@ -1,4 +1,3 @@
-import style from "../../Shared/Css/Register.module.css";
 import SigninComponent from "../../Components/SigninComponent";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,195 +63,135 @@ const RegisterPage = () => {
     }
   }
 
-  return (
-    <section className="auth-body flex justify-center items-center min-h-screen mb-24">
-      <div className="text-center">
-        <SigninComponent />
+return ( 
+  <section className="bg-transparent auth-body flex justify-center items-center min-h-screen mb-24">
+    <div className="text-center">
+      <SigninComponent />
 
-        <form
-          onSubmit={handleSubmit(handleRegister)}
-          className="mx-auto inline-block"
-        >
-          <div className={`${style.neumorphic} ${style["neumorphic-card"]}`}>
-            <h2 className={style.h1}>Sign Up</h2>
+      <form
+        onSubmit={handleSubmit(handleRegister)}
+        className="mx-auto inline-block"
+      >
+        <div className="neumorphic neumorphic-card">
+          <h2 className="h1">Sign Up</h2>
 
-            {/* Name */}
-            <div className={style["form-group"]}>
-              <input
-                type="text"
-                {...register("name")}
-                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                  errors.name ? style["input-error"] : ""
-                }`}
-                placeholder="Name"
-              />
-              {errors.name && (
-                <span className={style["error-message"]}>
-                  {errors.name.message}
-                </span>
-              )}
-            </div>
-
-            {/* Email */}
-            <div className={style["form-group"]}>
-              <input
-                type="email"
-                {...register("email")}
-                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                  errors.email ? style["input-error"] : ""
-                }`}
-                placeholder="Email"
-              />
-              {errors.email && (
-                <span className={style["error-message"]}>
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
-
-            {/* Password */}
-            <div className={`${style["form-group"]} relative`}>
-              <input
-                type={showPassword ? "text" : "password"}
-                {...register("password")}
-                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                  errors.password ? style["input-error"] : ""
-                }`}
-                placeholder="Password"
-              />
-              {errors.password && (
-                <span className={style["error-message"]}>
-                  {errors.password.message}
-                </span>
-              )}
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute inset-y-0 top-5 right-2 flex items-center text-green-500"
-              >
-                {showPassword ? (
-                  <EyeSlashIcon className="w-5 h-5" />
-                ) : (
-                  <EyeIcon className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
-            {/* Re-enter Password */}
-            <div className={`${style["form-group"]} relative`}>
-              <input
-                type={showRePassword ? "text" : "password"}
-                {...register("rePassword")}
-                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                  errors.rePassword ? style["input-error"] : ""
-                }`}
-                placeholder="Re-enter Password"
-              />
-              {errors.rePassword && (
-                <span className={style["error-message"]}>
-                  {errors.rePassword.message}
-                </span>
-              )}
-              <button
-                type="button"
-                onClick={() => setShowRePassword((prev) => !prev)}
-                className="absolute inset-y-0 top-5 right-2 flex items-center text-green-500"
-              >
-                {showRePassword ? (
-                  <EyeSlashIcon className="w-5 h-5" />
-                ) : (
-                  <EyeIcon className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
-            {/* Date of Birth */}
-            <div className={style["form-group"]}>
-              <input
-                type="date"
-                {...register("dateOfBirth")}
-                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                  errors.dateOfBirth ? style["input-error"] : ""
-                }`}
-              />
-            </div>
-
-            {/* Gender */}
-            <label className={style["neumorphic-label"]}>Gender</label>
-            <div
-              style={{ width: "100%", maxWidth: "450px", marginBottom: "25px" }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: "10px",
-                  justifyContent: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <button
-                  type="button"
-                  onClick={() => setValue("gender", "male")}
-                  className={`
-                  ${style.neumorphic}
-                  ${style["neumorphic-button"]}
-                  ${gender === "male" ? style["selected-button"] : ""}
-                `}
-                  style={{ flex: "1 1 45%" }}
-                >
-                  Male
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setValue("gender", "female")}
-                  className={`
-                  ${style.neumorphic}
-                  ${style["neumorphic-button"]}
-                  ${gender === "female" ? style["selected-button"] : ""}
-                `}
-                  style={{ flex: "1 1 45%" }}
-                >
-                  Female
-                </button>
-              </div>
-
-              {errors.gender && (
-                <span className={style["error-message"]}>
-                  {errors.gender.message}
-                </span>
-              )}
-            </div>
-
-            {/* Hidden Gender Field */}
+          {/* Name */}
+          <div className="form-group">
             <input
-              type="hidden"
-              {...register("gender", { required: "Gender is required" })}
+              type="text"
+              {...register("name")}
+              className={`neumorphic neumorphic-input ${errors.name ? "input-error" : ""}`}
+              placeholder="Name"
             />
-
-            {/* Submit */}
-            <button
-              type="submit"
-              className={`${style.neumorphic} ${style["neumorphic-button"]}`}
-              disabled={isLoading}
-            >
-              {isLoading ? <span className={style.loader}></span> : "Sign In"}
-            </button>
-
-            <p
-              style={{ marginTop: "15px", color: "#6d7582", fontSize: "14px" }}
-            >
-              Already have an account?{" "}
-              <Link to={"/login"} replace style={{ color: "#0036ff" }}>
-                Sig In
-              </Link>
-            </p>
+            {errors.name && <span className="error-message">{errors.name.message}</span>}
           </div>
-        </form>
-      </div>
-    </section>
-  );
+
+          {/* Email */}
+          <div className="form-group">
+            <input
+              type="email"
+              {...register("email")}
+              className={`neumorphic neumorphic-input ${errors.email ? "input-error" : ""}`}
+              placeholder="Email"
+            />
+            {errors.email && <span className="error-message">{errors.email.message}</span>}
+          </div>
+
+          {/* Password */}
+          <div className="form-group relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+              className={`neumorphic neumorphic-input ${errors.password ? "input-error" : ""} pr-10`}
+              placeholder="Password"
+            />
+            {errors.password && <span className="error-message">{errors.password.message}</span>}
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute inset-y-0 bottom-2 right-2 flex items-center text-green-500"
+            >
+              {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+            </button>
+          </div>
+
+          {/* Re-enter Password */}
+          <div className="form-group relative">
+            <input
+              type={showRePassword ? "text" : "password"}
+              {...register("rePassword")}
+              className={`neumorphic neumorphic-input ${errors.rePassword ? "input-error" : ""} pr-10`}
+              placeholder="Re-enter Password"
+            />
+            {errors.rePassword && <span className="error-message">{errors.rePassword.message}</span>}
+            <button
+              type="button"
+              onClick={() => setShowRePassword((prev) => !prev)}
+              className="absolute inset-y-0 bottom-2 right-2 flex items-center text-green-500"
+            >
+              {showRePassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+            </button>
+          </div>
+
+          {/* Date of Birth */}
+          <div className="form-group">
+            <input
+              type="date"
+              {...register("dateOfBirth")}
+              className={`neumorphic neumorphic-input ${errors.dateOfBirth ? "input-error" : ""}`}
+            />
+          </div>
+
+          {/* Gender */}
+          <label className="neumorphic-label">Gender</label>
+          <div className="w-full max-w-[450px] mb-6">
+            <div className="flex flex-row gap-2 justify-center flex-wrap">
+              <button
+                type="button"
+                onClick={() => setValue("gender", "male")}
+                className={`flex-1 min-w-[45%] neumorphic neumorphic-button ${gender === "male" ? "selected-button" : ""}`}
+              >
+                Male
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setValue("gender", "female")}
+                className={`flex-1 min-w-[45%] neumorphic neumorphic-button ${gender === "female" ? "selected-button" : ""}`}
+              >
+                Female
+              </button>
+            </div>
+            {errors.gender && <span className="error-message">{errors.gender.message}</span>}
+          </div>
+
+          {/* Hidden Gender Field */}
+          <input
+            type="hidden"
+            {...register("gender", { required: "Gender is required" })}
+          />
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="neumorphic neumorphic-button mt-5"
+            disabled={isLoading}
+          >
+            {isLoading ? <span className="loader"></span> : "Sign In"}
+          </button>
+
+          <p className="mt-4 text-[#6d7582] text-sm dark:text-gray-400">
+            Already have an account?{" "}
+            <Link to={"/login"} replace className="text-[#0036ff] dark:text-[#D3006C] hover:underline">
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+);
+
 };
 
 export default RegisterPage;

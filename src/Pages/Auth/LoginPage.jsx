@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import style from "../../Shared/Css/Register.module.css";
 import SigninComponent from "../../Components/SigninComponent";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -56,84 +55,79 @@ const LoginPage = () => {
     }
   }
 
-  return (
-    <section className="auth-body flex justify-center items-center min-h-screen mb-24 dark:text-white">
-      <div className="text-center">
-        <SigninComponent />
+return (
+  <section className="bg-transparent auth-body flex justify-center items-center min-h-screen mb-24">
+    <div className="text-center">
+      <SigninComponent />
 
-        <form
-          onSubmit={handleSubmit(handleLogin)}
-          className="mx-auto inline-block  dark:bg-black dark:text-white"
-        >
-          <div className={`${style.neumorphic} ${style["neumorphic-card"]}`}>
-            <h2 className={`${style.h1} text-2xl text-white`}>Sign In</h2>
+      <form
+        onSubmit={handleSubmit(handleLogin)}
+        className="mx-auto inline-block outline-amber-700"
+      >
+        <div className="neumorphic neumorphic-card">
+          <h2 className="h1">Sign In</h2>
 
-            <input
-              type="email"
-              {...register("email")}
-              className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                errors.email ? style["input-error"] : ""
-              }`}
-              placeholder="Email"
-            />
-
-            {/* <input
-            type="password"
-            {...register("password")}
-            className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-              errors.password ? style["input-error"] : ""
+          <input
+            type="email"
+            {...register("email")}
+            className={`neumorphic neumorphic-input ${
+              errors.email ? "input-error" : ""
             }`}
-            placeholder="Password"
-          /> */}
+            placeholder="Email"
+          />
 
-            <div className={`${style["form-group"]} relative`}>
-              <input
-                type={showPassword ? "text" : "password"}
-                {...register("password")}
-                className={`${style.neumorphic} ${style["neumorphic-input"]} ${
-                  errors.password ? style["input-error"] : ""
-                } pr-10`} // ← مهم لترك مساحة للأيقونة
-                placeholder="Password"
-              />
-              {errors.password && (
-                <span className={style["error-message"]}>
-                  {errors.password.message}
-                </span>
-              )}
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center text-green-500"
-              >
-                {showPassword ? (
-                  <EyeSlashIcon className="w-5 h-5" />
-                ) : (
-                  <EyeIcon className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
+          <div className="form-group relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+              className={`neumorphic neumorphic-input ${
+                errors.password ? "input-error" : ""
+              } pr-10`}
+              placeholder="Password"
+            />
+            {errors.password && (
+              <span className="error-message">
+                {errors.password.message}
+              </span>
+            )}
             <button
-              type="submit"
-              className={`mt-5 ${style.neumorphic} ${style["neumorphic-button"]}`}
-              disabled={isLoading}
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-2 bottom-1 -translate-y-1/2 flex items-center text-green-500"
             >
-              {isLoading ? <span className={style.loader}></span> : "Sign In"}
+              {showPassword ? (
+                <EyeSlashIcon className="w-5 h-5" />
+              ) : (
+                <EyeIcon className="w-5 h-5" />
+              )}
             </button>
-
-            <p
-              style={{ marginTop: "15px", color: "#6d7582", fontSize: "14px" }}
-            >
-              Don't have an account?{" "}
-              <Link to={"/register"} replace style={{ color: "#0036ff" }}>
-                Sign up
-              </Link>
-            </p>
           </div>
-        </form>
-      </div>
-    </section>
-  );
+
+          <button
+            type="submit"
+            className="mt-5 neumorphic neumorphic-button"
+            disabled={isLoading}
+          >
+            {isLoading ? <span className="loader"></span> : "Sign In"}
+          </button>
+
+          <p className="mt-4 text-[#6d7582] text-sm dark:text-gray-400">
+            Don't have an account?{" "}
+            <Link
+              to={"/register"}
+              replace
+              className="text-[#0036ff] dark:text-[#D3006C] hover:underline"
+            >
+              Sign up
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+);
+
+
 };
 
 export default LoginPage;

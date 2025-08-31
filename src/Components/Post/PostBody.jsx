@@ -23,7 +23,7 @@ const PostBody = ({ caption, image }) => {
       {image && (
         <img
           src={image}
-          className="w-full h-100 object-contain object-center  mt-5 cursor-pointer rounded-lg"
+          className="w-full h-100 object-cover object-center  mt-5 cursor-pointer rounded-lg"
           alt=""
           onClick={() => handleImageClick(image)}
         />
