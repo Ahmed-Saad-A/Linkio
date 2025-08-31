@@ -109,7 +109,7 @@ return (
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute inset-y-0 bottom-2 right-2 flex items-center text-green-500"
+              className="absolute right-2 bottom-1 -translate-y-1/2 flex items-center text-green-500"
             >
               {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
             </button>
@@ -127,7 +127,7 @@ return (
             <button
               type="button"
               onClick={() => setShowRePassword((prev) => !prev)}
-              className="absolute inset-y-0 bottom-2 right-2 flex items-center text-green-500"
+              className="absolute right-2 bottom-1 -translate-y-1/2 flex items-center text-green-500"
             >
               {showRePassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
             </button>

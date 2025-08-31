@@ -45,11 +45,11 @@ const NavbarComponent = () => {
   }, [darkMode]);
 
   return (
-    <Navbar>
+    <Navbar className = ' dark:border-b-2 dark:border-blue-500'>
       {/* Logo */}
       <NavbarBrand>
         <span
-          className="cursor-pointer flex items-center gap-2 text-2xl font-extrabold tracking-wide bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text hover:scale-110 transition-transform duration-300"
+          className="cursor-pointer flex items-center gap-2 text-2xl font-extrabold tracking-wide bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text hover:scale-110 transition-transform duration-300 "
           onClick={() => navigate("/")}
         >
           <FontAwesomeIcon

@@ -61,7 +61,7 @@
   }
 
   .form-group {
-    @apply w-full max-w-[450px] mb-5 ;
+    @apply w-full max-w-[450px] mb-5;
   }
 
   .neumorphic {
@@ -69,14 +69,15 @@
     box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px #fff;
   }
   .dark .neumorphic {
-    box-shadow: 10px 10px 20px #111, -10px -10px 20px #D3006C;
+    @apply bg-black;
+    box-shadow: 10px 10px 20px #111, -10px -10px 20px #870046;
   }
 
   .neumorphic-inset {
     box-shadow: inset 10px 10px 20px #a3b1c6, inset -10px -10px 20px #fff;
   }
   .dark .neumorphic-inset {
-    box-shadow: inset 10px 10px 20px #111, inset -10px -10px 20px #D3006C;
+    box-shadow: inset 10px 10px 20px #111, inset -10px -10px 20px #870046;
   }
 
   .neumorphic-card {
@@ -104,14 +105,14 @@
     box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #8fbdff;
   }
   .dark .selected-button {
-    box-shadow: inset 5px 5px 10px #111, inset -5px -5px 10px #D3006C;
+    box-shadow: inset 5px 5px 10px #111, inset -5px -5px 10px #870046;
   }
 
   .neumorphic-button:active {
     box-shadow: inset 5px 5px 10px #8fbdff, inset -5px -5px 10px #fff;
   }
   .dark .neumorphic-button:active {
-    box-shadow: inset 5px 5px 10px #111, inset -5px -5px 10px #D3006C;
+    box-shadow: inset 5px 5px 10px #111, inset -5px -5px 10px #870046;
   }
 
   .toggle-theme {
