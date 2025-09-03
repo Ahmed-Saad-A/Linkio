@@ -1,107 +1,10 @@
-import { addToast } from "@heroui/react";
-import React, { useRef, useState, useEffect, useContext } from "react";
-import {
-  CameraIcon,
-  Cog6ToothIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/solid";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Input,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from "@heroui/react";
-import userPhoto from "/src/assets/user-circles.png";
-import profile from "/src/assets/Profile.png";
+import React, { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContextProvider";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { uploadUserPhoto } from "../../Services/UserServices";
+import profile from "/src/assets/Profile.png";
+import ProfilePhotoUploader from "./ProfilePhotoUploader";
 
 const ProfileHeader = () => {
   const { userData } = useContext(AuthContext);
-  const [avatar, setAvatar] = useState(userPhoto);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-
-  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
-
-
-
-  const fileInputRef = useRef();
-
-  useEffect(() => {
-    if (userData?.photo) {
-      setAvatar(userData?.photo || userPhoto);
-    }
-  }, [userData]);
-
-  const handleCameraClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        addToast({
-          title: "Error",
-          description: "File size exceeds 5MB limit",
-          color: "danger",
-        });
-        return;
-      }
-      setSelectedFile(file);
-      setIsPhotoModalOpen(true);
-    }
-  };
-
-  const handleUploadPhoto = async () => {
-    if (!selectedFile) return;
-
-    setIsUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append("photo", selectedFile);
-
-      const response = await uploadUserPhoto(formData);
-
-      if (response?.photoUrl) {
-        setAvatar(response.photoUrl);
-        addToast({
-          title: "Success",
-          description: "Profile photo updated successfully",
-          color: "success",
-        });
-      } else {
-        throw new Error("Upload failed");
-      }
-
-      setSelectedFile(null);
-      setIsPhotoModalOpen(false);
-    } catch (error) {
-      addToast({
-        title: "Error",
-        description: error.message || "Failed to upload photo",
-        color: "danger",
-      });
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setSelectedFile(null);
-    setIsPhotoModalOpen(false);
-  };
-
 
   return (
     <div className="relative w-full mb-10">
@@ -114,88 +17,22 @@ const ProfileHeader = () => {
           />
         </div>
 
-        {/* Profile Photo + settings */}
+        {/* Profile Photo + Name */}
         <div className="relative flex flex-col md:flex-row items-center md:items-end justify-between px-4 md:px-8">
           <div className="flex flex-col md:flex-row items-center">
             <div className="relative -mt-16 md:-mt-20">
-              <img
-                src={avatar}
-                alt="Profile"
-                className="w-28 h-28 md:w-40 md:h-40 rounded-full border-4 border-white object-cover"
-              />
-              <button
-                onClick={handleCameraClick}
-                className="absolute bottom-2 right-2 bg-gray-800 p-2 rounded-full border border-white hover:bg-gray-700"
-              >
-                <CameraIcon className="w-5 h-5 text-white" />
-              </button>
-              <input
-                type="file"
-                ref={fileInputRef}
-                className="hidden"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+              <ProfilePhotoUploader />
             </div>
-
             <div className="mt-3 md:mt-0 md:ml-6 text-center md:text-left">
               <h2 className="text-xl md:text-2xl font-bold">
                 {userData?.name || "Loading..."}
               </h2>
             </div>
           </div>
-
         </div>
       </div>
-
-      {/* Photo Modal */}
-      <Modal
-        isOpen={isPhotoModalOpen}
-        onOpenChange={setIsPhotoModalOpen}
-        placement="center"
-      >
-        <ModalContent>
-          {() => (
-            <>
-              <ModalHeader className="text-lg font-bold">
-                Confirm New Photo
-              </ModalHeader>
-              <ModalBody className="flex flex-col items-center">
-                {selectedFile && (
-                  <div className="relative">
-                    <img
-                      src={URL.createObjectURL(selectedFile)}
-                      alt="Preview"
-                      className="rounded-lg max-h-72"
-                    />
-                    <button
-                      onClick={handleRemoveImage}
-                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
-                    >
-                      <XMarkIcon className="w-5 h-5" />
-                    </button>
-                  </div>
-                )}
-              </ModalBody>
-              <ModalFooter>
-                <Button variant="light" onPress={handleRemoveImage}>
-                  Cancel
-                </Button>
-                <Button
-                  color="success"
-                  onPress={handleUploadPhoto}
-                  isLoading={isUploading}
-                >
-                  Save Photo
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-
-
     </div>
   );
 };
+
 export default ProfileHeader;

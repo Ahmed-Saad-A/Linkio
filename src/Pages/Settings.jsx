@@ -14,6 +14,7 @@ import {
 import { changePassword } from "../Services/UserServices";
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { EyeIcon } from "lucide-react";
+import ProfilePhotoUploader from "../Components/Profile/ProfilePhotoUploader";
 
 const ProfileSettings = () => {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
@@ -36,6 +37,11 @@ const ProfileSettings = () => {
   console.log("🚀 ~ ProfileSettings ~ dob:", dob);
   console.log("🚀 ~ ProfileSettings ~ user:", user);
   console.log("🚀 ~ ProfileSettings ~ user.dateOfBirth:", user?.dateOfBirth);
+
+  const createdAt = user?.createdAt
+    ? dayjs(user.createdAt, ["YYYY-MM-DD", "YYYY/MM/DD", "DD/MM/YYYY"])
+    : null;
+  console.log("🚀 ~ ProfileSettings ~ createdAt:", createdAt);
 
   const handleChangePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
@@ -93,11 +99,7 @@ const ProfileSettings = () => {
       <div className="w-full max-w-3xl bg-white dark:bg-[#020405] rounded-2xl shadow-lg p-8 space-y-8">
         {/* Header */}
         <div className="border-b border-gray-300 dark:border-pink-600 pb-4 mb-6 flex items-center gap-4">
-          <img
-            src={userData?.photo}
-            alt={userData?.name}
-            className="w-16 h-16 rounded-full object-cover border-2 border-gray-300 dark:border-gray-500"
-          />
+          <ProfilePhotoUploader />
 
           <div>
             <h1 className="text-2xl font-bold">{userData?.name}</h1>
@@ -134,33 +136,49 @@ const ProfileSettings = () => {
               readOnly
             />
           </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* Gender */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-300 mb-2">
+              Gender
+            </label>
+            <input
+              type="text"
+              defaultValue={userData?.gender}
+              className="w-full px-4 py-2 rounded-lg bg-gray-200 dark:bg-[#0b253a] text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-pink-600"
+              readOnly
+            />
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Gender */}
-            <div>
-              <label className="block text-gray-600 dark:text-gray-300 mb-2">
-                Gender
-              </label>
-              <input
-                type="text"
-                defaultValue={userData?.gender}
-                className="w-full px-4 py-2 rounded-lg bg-gray-200 dark:bg-[#0b253a] text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-pink-600"
-                readOnly
-              />
-            </div>
+          {/* Age */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-300 mb-2">
+              Age
+            </label>
+            <input
+              type="text"
+              defaultValue={dob ? dayjs().diff(dob, "year") : ""}
+              className="w-full px-4 py-2 rounded-lg bg-gray-200 dark:bg-[#0b253a] text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-pink-600"
+              readOnly
+            />
+          </div>
 
-            {/* Age */}
-            <div>
-              <label className="block text-gray-600 dark:text-gray-300 mb-2">
-                Age
-              </label>
-              <input
-                type="text"
-                defaultValue={dob ? dayjs().diff(dob, "year") : ""}
-                className="w-full px-4 py-2 rounded-lg bg-gray-200 dark:bg-[#0b253a] text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-pink-600"
-                readOnly
-              />
-            </div>
+          {/* Created At */}
+          <div>
+            <label className="block text-gray-600 dark:text-gray-300 mb-2">
+              Account Created
+            </label>
+            <input
+              type="text"
+              defaultValue={
+                userData?.createdAt
+                  ? dayjs(userData.createdAt).format("DD/MM/YYYY")
+                  : ""
+              }
+              className="w-full px-4 py-2 rounded-lg bg-gray-200 dark:bg-[#0b253a] text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-pink-600"
+              readOnly
+            />
           </div>
         </div>
 

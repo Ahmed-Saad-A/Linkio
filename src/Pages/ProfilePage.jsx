@@ -7,7 +7,6 @@ import { getUserPostsApi } from "../Services/UserServices";
 import PostSkeleton from "../Components/Post/PostSkeleton";
 import Post from "../Components/Post";
 
-
 const ProfilePage = () => {
   const [activeCommentFor, setActiveCommentFor] = useState(null);
   const { userData } = useContext(AuthContext);
@@ -39,8 +38,12 @@ const ProfilePage = () => {
           />
         ))
       ) : (
-        <p className="text-center mt-5 text-gray-500">
-          There are no posts for this user.
+        <p
+          className="mx-auto mt-10 w-fit px-6 py-3 text-center text-cyan-700 dark:text-cyan-300 
+            bg-gray-300 dark:bg-gray-800 rounded-xl shadow-md 
+            animate-pulse"
+        >
+          No posts to show yet.
         </p>
       )}
     </section>

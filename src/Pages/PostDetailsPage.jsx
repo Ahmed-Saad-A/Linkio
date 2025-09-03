@@ -6,6 +6,7 @@ import Post from './../Components/Post';
 const PostDetailsPage = () => {
   const [post, setpost] = useState(null);
   const  {id}  = useParams();
+  const [activeCommentFor, setActiveCommentFor] = useState(null);
 
   
   async function getSinglePost() {
@@ -23,7 +24,7 @@ const PostDetailsPage = () => {
 
   return (
     <div className='my-10'>
-      {post && <Post posts={post} />}
+      {post && <Post activeCommentFor={activeCommentFor} setActiveCommentFor={setActiveCommentFor} posts={post} />}
     </div>
   )
 }
