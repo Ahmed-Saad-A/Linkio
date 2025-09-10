@@ -11,7 +11,7 @@ import {
   DropdownItem,
 } from "@heroui/react";
 import userPhoto from "/src/assets/user-circles.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useContext, useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
@@ -20,6 +20,8 @@ import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../Context/AuthContextProvider";
 
 const NavbarComponent = () => {
+  const location = useLocation();
+
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, userData } = useContext(AuthContext);
 
@@ -45,7 +47,7 @@ const NavbarComponent = () => {
   }, [darkMode]);
 
   return (
-    <Navbar className = ' dark:border-b-2 dark:border-blue-500'>
+    <Navbar className=" dark:border-b-2 dark:border-blue-500">
       {/* Logo */}
       <NavbarBrand>
         <span
@@ -158,21 +160,47 @@ const NavbarComponent = () => {
 
         {!isLoggedIn && (
           <>
-            <NavbarItem className="hidden lg:flex">
-              <Button as={NavLink} to="/login" color="default" variant="flat">
-                Sign In
-              </Button>
-            </NavbarItem>
-            <NavbarItem>
-              <Button
-                as={NavLink}
-                to="/register"
-                color="primary"
-                variant="flat"
-              >
-                Sign Up
-              </Button>
-            </NavbarItem>
+            {location.pathname === "/login" ? (
+              <NavbarItem>
+                <Button
+                  as={NavLink}
+                  to="/register"
+                  color="primary"
+                  variant="flat"
+                >
+                  Sign Up
+                </Button>
+              </NavbarItem>
+            ) : location.pathname === "/register" ? (
+              <NavbarItem>
+                <Button as={NavLink} to="/login" color="default" variant="flat">
+                  Sign In
+                </Button>
+              </NavbarItem>
+            ) : (
+              <>
+                <NavbarItem className="hidden lg:flex">
+                  <Button
+                    as={NavLink}
+                    to="/login"
+                    color="default"
+                    variant="flat"
+                  >
+                    Sign In
+                  </Button>
+                </NavbarItem>
+                <NavbarItem>
+                  <Button
+                    as={NavLink}
+                    to="/register"
+                    color="primary"
+                    variant="flat"
+                  >
+                    Sign Up
+                  </Button>
+                </NavbarItem>
+              </>
+            )}
           </>
         )}
       </NavbarContent>
