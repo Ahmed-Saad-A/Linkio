@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@heroui/react";
+import { addToast, Button } from "@heroui/react";
+import EmojiButton from "../EmojiButton";
 
 const EditPost = ({ post, onSave, onCancel }) => {
   const [editedCaption, setEditedCaption] = useState(post.body);
@@ -13,12 +14,23 @@ const EditPost = ({ post, onSave, onCancel }) => {
     setImageFile(null);
   }, [post]);
 
-  function handleImageChange(e) {
-    if (e.target.files && e.target.files[0]) {
-      setImageFile(e.target.files[0]);
-      setEditedImage(URL.createObjectURL(e.target.files[0]));
-    }
+function handleImageChange(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  if (file.size >= 2 * 1024 * 1024) {
+    addToast({
+      title: "Error",
+      description: "File size exceeds 2MB limit",
+      color: "danger",
+    });
+    return;
   }
+
+  setImageFile(file);
+  setEditedImage(URL.createObjectURL(file));
+}
+
 
   async function handleSaveClick() {
     setIsSaving(true);
@@ -29,63 +41,69 @@ const EditPost = ({ post, onSave, onCancel }) => {
     }
   }
 
-return (
-  <div className="fixed inset-0 z-50 flex items-center justify-center">
-    <div
-      className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
-      onClick={onCancel}
-    ></div>
+  const handleEmojiSelect = (emoji) => {
+    setEditedCaption((prev) => prev + emoji);
+  };
 
-    <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-md p-5 z-10 animate-fadeIn">
-      <h2 className="text-lg font-semibold mb-4 dark:text-gray-100">
-        Edit Post
-      </h2>
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+        onClick={onCancel}
+      ></div>
 
-      <input
-        type="text"
-        className="w-full mb-3 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-gray-200"
-        value={editedCaption}
-        onChange={(e) => setEditedCaption(e.target.value)}
-        placeholder="Edit your caption..."
-      />
+      <div className="relative bg-white dark:bg-gray-900 rounded-xl shadow-lg w-full max-w-md p-5 z-10 animate-fadeIn">
+        <h2 className="text-lg font-semibold mb-4 dark:text-gray-100">
+          Edit Post
+        </h2>
 
-      {editedImage && (
-        <div className="mb-3">
-          <img
-            src={editedImage}
-            alt="preview"
-            className="w-full max-h-64 object-cover rounded shadow"
+        <div className="flex items-center gap-2 mb-3">
+          <input
+            type="text"
+            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-gray-200"
+            value={editedCaption}
+            onChange={(e) => setEditedCaption(e.target.value)}
+            placeholder="Edit your caption..."
           />
+          <EmojiButton onEmojiSelect={handleEmojiSelect} />
         </div>
-      )}
 
-      <input
-        type="file"
-        onChange={handleImageChange}
-        className="mb-4 block text-sm text-gray-500 dark:text-gray-300"
-      />
+        {editedImage && (
+          <div className="mb-3">
+            <img
+              src={editedImage}
+              alt="preview"
+              className="w-full max-h-64 object-cover rounded shadow"
+            />
+          </div>
+        )}
 
-      <div className="flex justify-end gap-3">
-        <Button
-          color="default"
-          variant="light"
-          onPress={onCancel}
-          disabled={isSaving}
-        >
-          Cancel
-        </Button>
-        <Button
-          color="primary"
-          onPress={handleSaveClick}
-          isLoading={isSaving}
-        >
-          Save
-        </Button>
+        <input
+          type="file"
+          onChange={handleImageChange}
+          className="mb-4 block text-sm text-gray-500 dark:text-gray-300"
+        />
+
+        <div className="flex justify-end gap-3">
+          <Button
+            color="default"
+            variant="light"
+            onPress={onCancel}
+            disabled={isSaving}
+          >
+            Cancel
+          </Button>
+          <Button
+            color="primary"
+            onPress={handleSaveClick}
+            isLoading={isSaving}
+          >
+            Save
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 };
 
 export default EditPost;

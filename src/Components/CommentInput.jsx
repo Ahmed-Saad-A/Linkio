@@ -1,24 +1,19 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import userPhoto from "/src/assets/user-circles.png";
 import { addComment } from "../Services/CommentsServices";
 import {
   PhotoIcon,
-  FaceSmileIcon,
   SparklesIcon,
   PaperAirplaneIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Button, Spinner } from "@heroui/react";
 import { AuthContext } from "../Context/AuthContextProvider";
-import EmojiPicker from "emoji-picker-react";
+import EmojiButton from "./EmojiButton";
 
 const CommentInput = ({ postId, isActive, setActiveCommentFor, callback }) => {
   const [commentContent, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPicker, setShowPicker] = useState(false);
-
   const { userData } = useContext(AuthContext);
-  const pickerRef = useRef(null);
 
   async function handleCommentSubmit() {
     if (!commentContent.trim()) return;
@@ -33,25 +28,9 @@ const CommentInput = ({ postId, isActive, setActiveCommentFor, callback }) => {
     }
   }
 
-  const togglePicker = () => setShowPicker((prev) => !prev);
-
-  const handleEmojiClick = (emojiData) => {
-    setComment((prev) => prev + (emojiData?.emoji || ""));
+  const handleEmoji = (emoji) => {
+    setComment((prev) => prev + emoji);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (pickerRef.current && !pickerRef.current.contains(e.target)) {
-        setShowPicker(false);
-      }
-    };
-    if (showPicker) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showPicker]);
 
   return (
     <div className="w-full flex items-center gap-2 pb-5 relative">
@@ -69,10 +48,7 @@ const CommentInput = ({ postId, isActive, setActiveCommentFor, callback }) => {
           onChange={(e) => setComment(e.target.value)}
           placeholder={isActive ? "Comment as ..." : "Write a comment..."}
           className="w-full outline-none text-sm bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500"
-          onFocus={() => {
-            setActiveCommentFor(postId);
-            setShowPicker(false);
-          }}
+          onFocus={() => setActiveCommentFor(postId)}
         />
 
         {isActive && (
@@ -80,34 +56,13 @@ const CommentInput = ({ postId, isActive, setActiveCommentFor, callback }) => {
             <button className="hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
               <PhotoIcon className="w-5 h-5" />
             </button>
+
             <button className="hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
               GIF
             </button>
 
-            <div className="relative" ref={pickerRef}>
-              <button
-                type="button"
-                onClick={togglePicker}
-                className="hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
-                title="Emoji"
-              >
-                <FaceSmileIcon className="w-5 h-5" />
-              </button>
-
-              {showPicker && (
-                <div
-                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-                  onClick={() => setShowPicker(false)}
-                >
-                  <div
-                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-72 sm:w-96 max-h-[80vh] overflow-y-auto"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <EmojiPicker onEmojiClick={handleEmojiClick} />
-                  </div>
-                </div>
-              )}
-            </div>
+            {/* 👇 استخدم الكمبوننت بتاع الإيموجي */}
+            <EmojiButton onEmojiSelect={handleEmoji} />
 
             <button className="hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
               <SparklesIcon className="w-5 h-5" />

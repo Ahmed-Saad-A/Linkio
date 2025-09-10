@@ -16,6 +16,7 @@ import {
   FaceSmileIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
+import EmojiButton from "../EmojiButton";
 
 dayjs.extend(relativeTime);
 
@@ -98,8 +99,10 @@ async function handleDeleteComment() {
       setIsLoading(false);
     }
   
-    
   }
+  const handleEmoji = (emoji) => {
+setEditedContent((prev) => prev + emoji);
+};
 
   return (
     <div className="flex w-fit items-start space-x-2 pb-5 group">
@@ -143,12 +146,12 @@ async function handleDeleteComment() {
                   <button className="hover:text-gray-700 dark:hover:text-gray-300 transition">
                     GIF
                   </button>
-                  <button className="hover:text-gray-700 dark:hover:text-gray-300 transition">
-                    <FaceSmileIcon className="w-5 h-5" />
-                  </button>
+                  
+                  <EmojiButton onEmojiSelect={handleEmoji} />
+
                   <button className="hover:text-gray-700 dark:hover:text-gray-300 transition">
                     <SparklesIcon className="w-5 h-5" />
-                  </button>
+                  </button> 
                 </div>
 
                 <Button
